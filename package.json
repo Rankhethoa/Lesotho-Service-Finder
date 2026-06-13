@@ -1,6 +1,7 @@
 {
   "name": "servicefinder",
   "version": "1.0.0",
+  "type": "module",
   "description": ">A website for finding local service providers in Lesotho",
   "main": "clearRatings.js",
   "scripts": {
