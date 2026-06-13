@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Service Finder - Find Services in Lesotho</title>
+    <meta name="description" content="Find the best service providers in Lesotho - from beauty to household maintenance">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/homePage.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,600,600i,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Top Navigation -->
+    <section class="top-nav">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="left-menu">
+                        <ul>
+                            <li><a href="#" onclick="openComplaintModal(event)"><i class="fa fa-envelope" aria-hidden="true"></i> Contact Us</a></li>                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Main Navigation -->
+    <section id="menu-navbar">
+        <div class="nav-bar">
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html">
+                            <img src="image/LSO SERVICE FINDER.png" alt="Service Finder Logo" style="height: 40px; width: 60px;"> 
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html">HOME</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Vue App Container -->
+    <div id="app">
+        <!-- Search Section -->
+        <div class="top-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="info-group">
+                        <div class="row">
+                            <!-- Keyword Search -->                            
+                            <div class="col-md-4">
+                                <p class="list-key">Keyword</p>
+                                <form @submit.prevent>
+                                    <input type="text" class="input-control" placeholder="e.g Nails Quthing" v-model="filters.keyword" />
+                                </form>
+                            </div> 
+
+                            <!-- Category Filter -->
+                            <div class="col-md-4">
+                                <p class="list-key">Service Category</p>
+                                <div class="list3-24-18">
+                                    <form @submit.prevent>
+                                        <select class="selectpicker" v-model="filters.category">
+                                            <option value="">All Categories</option>
+                                            <optgroup label="Beauty & Personal Care">
+                                                <option value="Makeup">Makeup</option>
+                                                <option value="Braids">Braider</option>
+                                                <option value="Wigs">Wigs</option>
+                                                <option value="Barber">Barber</option>
+                                                <option value="Nails">Nails</option>
+                                                <option value="Lash tech">Lash tech</option>
+                                                <option value="Tattoo and Piercings">Tattoo and Piercings</option>
+                                            </optgroup>
+                                            <optgroup label="Cleaning Services">
+                                                <option>Laundry</option>
+                                                <option>Sneaker cleaning</option>
+                                                <option>Car wash</option>
+                                                <option>Home Cleaning</option>
+                                            </optgroup>
+                                            <optgroup label="Home Outdoor Services">
+                                                <option>Gardener</option>
+                                                <option>Plumber</option>
+                                                <option>Electrician</option>
+                                                <option>Painter</option>
+                                                <option>Handyman</option>
+                                            </optgroup>
+                                            <optgroup label="Professional Services">
+                                                <option>Photographer</option>
+                                                <option>Event planner</option>
+                                                <option>Caterer</option>
+                                                <option>Personal Trainer</option>
+                                                <option>Tutor</option>
+                                            </optgroup>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Location Filter -->
+                            <div class="col-md-4">
+                                <p class="list-key">Location</p>
+                                <div class="list3-24-18">
+                                    <form @submit.prevent>
+                                        <select class="selectpicker" v-model="filters.location">
+                                            <option value="">All Locations</option>
+                                            <option value="Berea">Berea</option>
+                                            <option value="Butha-Buthe">Butha-Buthe</option>
+                                            <option value="Leribe">Leribe</option>
+                                            <option value="Mafeteng">Mafeteng</option>
+                                            <option value="Maseru">Maseru</option>
+                                            <option value="Mohale's Hoek">Mohale's Hoek</option>
+                                            <option value="Mokhotlong">Mokhotlong</option>
+                                            <option value="Qacha's Nek">Qacha's Nek</option>
+                                            <option value="Quthing">Quthing</option>
+                                            <option value="Thaba-Tseka">Thaba-Tseka</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Search Button -->
+                            <div class="col-md-4">
+                                <form @submit.prevent="goToResults">
+                                    <button type="submit" class="search-button" @click="goToResults">
+                                        <i class="fa fa-search"></i> Search
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Services -->
+        <section class="featured" v-show="!showServiceDetail">
+            <div class="container">
+                <h2 class="page-heading-17-03">Featured Services</h2>
+
+                <div class="table-bg">
+                    <table class="table services-table">
+                        <tbody>
+                            <tr v-for="service in services" :key="service._id">
+                                <td>
+                                    <div class="service-name-cell">
+                                        <div class="service-avatar">
+                                            {{ service.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase() }}
+                                        </div>
+                                        <p style="font-size: 15px;">{{ service.name }}</p>
+                                    </div>
+                                </td>
+                                <td class="work-time">
+                                    {{ service.priceRange || "Price not provided" }}
+                                </td>                   
+                                <td>
+                                    <i class="fa fa-map-marker"></i>
+                                    {{ service.location?.area }}, {{ service.location?.district }}
+                                </td>                   
+                                <td>
+                                    <a href="#" @click.prevent="viewServiceDetails(service._id)" class="table-btn-default">
+                                        View Service
+                                    </a>
+                                </td>                  
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
+           
+                <!-- Pagination -->
+                <ul class="pagination">
+                    <!-- Previous -->
+                    <li v-if="currentPage > 1">
+                      <a href="#" @click.prevent="loadServices(currentPage - 1)">&laquo;</a>
+                    </li>
+                  
+                    <!-- Page Numbers -->
+                    <li 
+                      v-for="n in totalPages" 
+                      :key="`page-${n}`" 
+                      :class="{ active: n === currentPage }" >
+                      <a href="#" @click.prevent="loadServices(n)">
+                        {{ n }}
+                      </a>
+                    </li>
+
+                    <li v-for="n in visiblePages" :key="`page-${n}`">
+
+                    <!-- Next -->
+                    <li v-if="currentPage < totalPages">
+                      <a href="#" @click.prevent="loadServices(currentPage + 1)">&raquo;</a>
+                    </li>
+                </ul> 
+            </div>
+        </section>
+
+        <!-- Service Detail View -->
+        <section class="featured" v-show="showServiceDetail">
+            <div class="container" style="position: relative;">
+          
+              <div style="margin-bottom: 30px;">
+                <button @click="backToFeatured" class="table-btn-default">
+                  <i class="fa fa-arrow-left"></i> Back to Home Page
+                </button>
+              </div>
+          
+              <div v-if="loadingDetail" style="text-align: center; padding: 50px;">
+                <i class="fa fa-spinner fa-spin" style="font-size: 3em; color: #138d75;"></i>
+                <p>Loading service details...</p>
+              </div>
+          
+              <div v-else-if="selectedService" class="service-detail-box">
+                <div class="row">
+          
+                  <!-- LEFT COLUMN: Image + Location -->
+                  <div class="col-md-5">
+                    <div class="detail-image-box" style="margin-bottom: 20px;">
+                      <img
+                        v-if="selectedService.imageUrl"
+                        :src="selectedService.imageUrl"
+                        :alt="selectedService.name"
+                        class="img-responsive"
+                        style="width: 100%; border-radius: 8px;"
+                      />
+                      <div v-else style="background: linear-gradient(135deg, #138d75 0%, #1abc9c 100%);
+                                         height: 300px; border-radius: 8px; display: flex;
+                                         align-items: center; justify-content: center;
+                                         color: white; font-size: 5em;">
+                        <i class="fa fa-briefcase"></i>
+                      </div>
+                    </div>
+          
+                    <div style="display: flex; align-items: center; margin-bottom: 10px; font-size: 16px; color: #666;">
+                      <i class="fa fa-map-marker" style="color: #138d75; width: 20px; margin-right: 10px;"></i>
+                      <span style="color: #333;">
+                        <strong>Location:</strong>
+                        {{ selectedService.location.area }}, {{ selectedService.location.district }}
+                      </span>
+                    </div>
+
+                    <!-- Contact background: #f8f9fa; -->
+                    <div style="padding: 20px; border-radius: 8px; margin-bottom: 10px; text-align: left;">
+                      <h4 style="margin-bottom: 15px; color: #333;">Contact Information</h4>
+                      <p style="margin-bottom: 10px; color: #666;">
+                        <i class="fa fa-phone" style="color: #138d75; width: 20px;"></i>
+                        <strong>Phone:</strong> {{ selectedService.contact.phone }}
+                      </p>
+                    </div> 
+
+                   
+
+                  </div>
+                  <!-- END LEFT COLUMN -->
+          
+                  <!-- RIGHT COLUMN: All details -->
+                  <div class="col-md-7">
+          
+                    <!-- Name -->
+                    <h1 style="color: #333; margin-bottom: 15px;">{{ selectedService.name }}</h1>
+          
+                    <!-- Categories -->
+                    <div style="margin-bottom: 20px;">
+                      <span
+                        v-for="(cat, index) in normalizedCategories"
+                        :key="cat + index"
+                        style="display: inline-block; color: #fff; padding: 4px 12px;
+                               border-radius: 20px; margin-right: 8px; margin-bottom: 8px;
+                               font-size: 14px; background-color: #138d75;">
+                        {{ cat }}
+                      </span>
+                    </div>
+
+                    <!-- Description -->
+                    <div style="margin-bottom: 20px;">
+                        <p style="color: #666; line-height: 1.8; font-size: 16px;">
+                          {{ selectedService.description }}
+                        </p>
+                    </div>
+          
+                    <!-- ── RATING SECTION ── -->
+                    <div style="margin-bottom: 20px;">
+          
+                    <!-- Always show stars if ratings exist -->
+                    <div v-if="selectedService.rating && selectedService.rating.count > 0"
+                        style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <span>
+                    <i v-for="star in 5" :key="star"
+                        class="fa"
+                        :class="star <= Math.round(selectedService.rating.average) ? 'fa-star' : 'fa-star-o'"
+                        style="color: #ffd700; font-size: 18px;">
+                    </i>
+                    </span>
+                    <strong style="color: #333; font-size: 16px;">
+                    {{ selectedService.rating.average.toFixed(1) }}
+                    </strong>
+                    <span style="color: #999; font-size: 13px;">
+                    / 5 ({{ selectedService.rating.count }}
+                    {{ selectedService.rating.count === 1 ? 'review' : 'reviews' }})
+                    </span>
+                    </div>
+
+                    <!-- No ratings yet — just a label, no click needed -->
+                    <div v-else style="font-size: 13px; color: #999; margin-bottom: 10px;">
+                    <i class="fa fa-star-o" style="color: #ffd700;"></i>
+                    No ratings yet — be the first!
+                    </div>
+
+                    <!-- Always show Rate button -->
+                    <button onclick="openRatingModal()"
+                        style="background: #888; color: white; border: none;
+                                padding: 8px 20px; border-radius: 20px;
+                                font-size: 14px; cursor: pointer;">
+                    <i class="fa fa-star" style="margin-right: 6px;"></i> Rate this service
+                    </button>
+          
+                      <!-- Success / error message -->
+                      <div v-if="ratingMessage"
+                           :style="{
+                             marginTop: '10px', fontSize: '13px', padding: '8px 14px',
+                             borderRadius: '8px', display: 'inline-block',
+                             background: ratingMessage.includes('Thanks') ? '#c6f6d5' : '#fed7d7',
+                             color: ratingMessage.includes('Thanks') ? '#276749' : '#9b2c2c'
+                           }">
+                        {{ ratingMessage }}
+                      </div>
+                    </div>
+                    <!-- ── END RATING SECTION ── -->
+          
+                    
+          
+                    <!-- Price -->
+                    <div style="margin-bottom: 20px;">
+                      <h3 style="color: #138d75; font-size: 2em; margin-bottom: 10px;">
+                        {{ selectedService.priceRange }}
+                      </h3>
+                    </div>
+          
+                    <!-- CONTACT -->
+          
+                    <!-- Socials style="margin-top: 5px; font-size: 16px;"-->
+                    
+                    
+          
+                  </div>
+                  <!-- END RIGHT COLUMN -->
+                  <div style="position: absolute; bottom: 20px; right: 20px;">
+                    <strong style="color: #666;">Socials:</strong>
+                    <span v-if="!selectedService.socials || selectedService.socials.length === 0"
+                          style="color: #999; margin-left: 8px;">
+                      No socials listed
+                    </span>
+                    <span v-for="social in selectedService.socials" :key="social.platform">
+                      <a v-if="social.platform.toLowerCase() === 'facebook'"
+                         :href="social.url"
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         title="Facebook"
+                         style="margin-left: 10px; text-decoration: none;">
+                        <i class="fa fa-facebook" style="color: #1877f2; font-size: 24px;"></i>
+                      </a>
+                      <a v-if="social.platform.toLowerCase() === 'instagram'"
+                         :href="social.url"
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         title="Instagram"
+                         style="margin-left: 8px; text-decoration: none;">
+                        <i class="fa fa-instagram" style="color: #e1306c; font-size: 24px;"></i>
+                      </a>
+                    </span>
+                  </div>
+                  <!-- END OF SOCIAL DIV -->
+                </div>
+              </div>
+          </div>
+          
+          </section>
+
+        <!-- Top Service Providers -->
+        <section class="top-employee" v-show="!showServiceDetail">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <div class="page-header-17-03">
+                            <h2><i class="fa fa-male" aria-hidden="true"></i> Top Service Providers</h2>
+                            <p>Top service providers ranked by how often their profiles are visited on our site.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="loadingTopProviders" style="text-align: center; padding: 50px;">
+                    <i class="fa fa-spinner fa-spin" style="font-size: 2em; color: #138d75;"></i>
+                    <p>Loading top providers...</p>
+                </div>
+
+                <div v-else class="row">
+                    <div class="col-md-2 col-md-offset-1" v-for="(provider, index) in topProviders" :key="provider._id">
+                        <div class="client-box-17-03" @click="viewServiceDetails(provider._id)">
+                            <div style="position: relative;">
+                                <img v-if="provider.imageUrl" :src="provider.imageUrl" :alt="provider.name" class="img-responsive" style="border-radius: 8px; width: 100%; height: 180px; object-fit: cover;" />
+                                <div v-else style="background: linear-gradient(135deg, #138d75 0%, #1abc9c 100%); height: 180px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3em;">
+                                    <i class="fa fa-briefcase"></i>
+                                </div>
+                                <span style="position: absolute; top: 10px; left: 10px; background: #138d75; color: white; padding: 5px 10px; border-radius: 20px; font-weight: bold; font-size: 14px;">
+                                    #{{ index + 1 }}
+                                </span>
+                            </div>
+
+                            
+                           
+                            <div style="text-align: center; margin-top: 15px;">
+                                <h4 style="color: #333; font-size: 16px; margin-bottom: 5px; font-weight: 600;">{{ provider.name }}</h4>
+                                <div>
+                                    <div v-if="provider.rating && provider.rating.count > 0"
+                                        style="display: flex; align-items: center; font-size: 16px; color: #666;">
+                                   
+                                       <!-- Star icons margin right 8px-->
+                                       <span style="margin-left: 10px; margin-right: 8px; ">
+                                           <i v-for="star in 5" :key="star"
+                                              class="fa"
+                                              :class="star <= Math.round(provider.rating.average) ? 'fa-star' : 'fa-star-o'"
+                                              style="color: #ffd700; font-size: 16px;">
+                                           </i>
+                                       </span>
+                                   
+                                   </div>
+                                </div>
+                                <p style="color: #888; font-size: 13px; margin-bottom: 8px;">
+
+                                    <span 
+                                        v-for="(cat, index) in normalizedCategories" 
+                                        :key="cat + index"
+                                        style="display: inline-block; color: #333; 
+                                            padding: 4px 12px; border-radius: 20px; 
+                                            margin-right: 6px; font-size: 14px;">
+                                        {{ cat }}
+                                    </span> 
+                                </p> 
+
+                                
+                                <p style="color: #666; font-size: 12px;">
+                                    <i class="fa fa-eye" style="color: #138d75;"></i> {{ provider.views || 0 }} views
+                                </p>
+                                
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="home-button text-center" >
+                    <a href="results3.html" class="button-17_03">See All Providers</a>
+                </div>
+            </div>
+
+        </div> <!-- CLOSES VUE APP-->
+        </section>
+
+        <!--- Statistics Counter -->
+        <section class="wrapper" v-show="!showServiceDetail">
+            <div class="counterup text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="coonut_box">
+                                <div class="counter-icon providers">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                      <circle cx="9" cy="7" r="4"/>
+                                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                    </svg>
+                                  </div>
+                                <span id="serviceCount">0</span>
+                                <br>
+                                <p>Service Providers</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div id="coonut_box">
+                                <div class="counter-icon users">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                      <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                  </div>
+                                <span id="visitorCount">0</span>
+                                <br>
+                                <p>Users</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> 
+        
+    </div>
+
+    <!-- Footer -->
+    <section class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="about-left">
+                        <h4>About Service Finder</h4>
+                        <p>We are a one stop site for all services in Lesotho. Find any service provider from beauty to household maintenance in your area.</p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="Footer-site-map footer-menu-list">
+                        <h4>Information</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="Footer-site-map footer-menu-list">
+                        <h4>For Service Providers</h4>
+                        <ul>
+                            <li><a href="about.html">How it works</a></li>
+                            <li><a href="myAccount.html">Register Service</a></li>
+                            <li><a href="login.html">Edit Service Details</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="Footer-social-menu footer-menu-list">
+                        <h4>Follow Us</h4>
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i> <span>Facebook</span></a></li>
+                            <li><a href="https://www.instagram.com/servicefinder.ls?igsh=MWJjM2k0MXdubTZoMg%3D%3D&utm_source=qr"><i class="fa fa-instagram" aria-hidden="true"></i> <span>Instagram</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rating Modal-->
+     <!-- Rating Modal -->
+<div id="ratingModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:white; border-radius:12px; padding:30px; width:90%; max-width:400px; position:relative; text-align:center;">
+
+        <button onclick="closeRatingModal()" style="position:absolute; top:12px; right:16px; background:none; border:none; font-size:1.4em; cursor:pointer;">✕</button>
+
+        <h3 style="margin-bottom:5px; color:#138d75;">Rate this Service</h3>
+        <p id="ratingServiceName" style="color:#888; font-size:0.9em; margin-bottom:20px;"></p>
+
+        <!-- Success message -->
+        <div id="ratingSuccess" style="display:none; background:#e8f8f5; border:1px solid #138d75; color:#138d75; padding:12px; border-radius:8px; margin-bottom:16px;">
+            ✓ Thanks for your rating!
+        </div>
+
+        <!-- Already rated message -->
+        <div id="ratingAlready" style="display:none; background:#fef9e7; border:1px solid #f39c12; color:#b7770d; padding:12px; border-radius:8px; margin-bottom:16px;">
+            You have already rated this service.
+        </div>
+
+        <!-- Error message -->
+        <div id="ratingError" style="display:none; background:#fdecea; border:1px solid #e74c3c; color:#e74c3c; padding:12px; border-radius:8px; margin-bottom:16px;">
+            Something went wrong. Please try again.
+        </div>
+
+        <!-- Star picker (hidden if already rated) -->
+        <div id="ratingStarSection">
+            <div id="ratingStars" style="display:flex; justify-content:center; gap:10px; margin-bottom:12px;">
+                <i class="fa fa-star-o" data-star="1" style="color:#ffd700; font-size:36px; cursor:pointer;"></i>
+                <i class="fa fa-star-o" data-star="2" style="color:#ffd700; font-size:36px; cursor:pointer;"></i>
+                <i class="fa fa-star-o" data-star="3" style="color:#ffd700; font-size:36px; cursor:pointer;"></i>
+                <i class="fa fa-star-o" data-star="4" style="color:#ffd700; font-size:36px; cursor:pointer;"></i>
+                <i class="fa fa-star-o" data-star="5" style="color:#ffd700; font-size:36px; cursor:pointer;"></i>
+            </div>
+            <span id="ratingLabel" style="font-size:13px; color:#888; display:block; margin-bottom:20px;">
+                Hover over a star to select
+            </span>
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <button id="ratingSubmitBtn" onclick="submitRating()" 
+                    style="background:#138d75; color:white; border:none; padding:9px 24px;
+                           border-radius:20px; font-size:14px; opacity:0.4; cursor:not-allowed;">
+                    Submit
+                </button>
+                <button onclick="closeRatingModal()" 
+                    style="background:transparent; color:#666; border:1px solid #ccc;
+                           padding:9px 24px; border-radius:20px; font-size:14px; cursor:pointer;">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+    <!-- Complaint Modal -->
+    <div id="complaintModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+        <div style="background:white; border-radius:12px; padding:30px; width:90%; max-width:480px; position:relative;">
+            
+            <button onclick="closeComplaintModal()" style="position:absolute; top:12px; right:16px; background:none; border:none; font-size:1.4em; cursor:pointer;">✕</button>
+            
+            <h3 style="margin-bottom:5px; color:#138d75;">Contact Us</h3>
+            <p style="color:#888; font-size:0.9em; margin-bottom:20px;">Fill in the form below and we'll get back to you.</p>
+
+            <div id="complaintSuccess" style="display:none; background:#e8f8f5; border:1px solid #138d75; color:#138d75; padding:12px; border-radius:8px; margin-bottom:16px;">
+                ✓ Your message has been sent! We'll be in touch soon.
+            </div>
+
+            <div id="complaintError" style="display:none; background:#fdecea; border:1px solid #e74c3c; color:#e74c3c; padding:12px; border-radius:8px; margin-bottom:16px;">
+                Something went wrong. Please try again.
+            </div>
+
+            <label style="display:block; margin-bottom:4px; font-size:0.85em; color:#555;">Your Name</label>
+            <input id="complaint_name" type="text" placeholder="John Doe" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:14px; box-sizing:border-box;"/>
+
+            <label style="display:block; margin-bottom:4px; font-size:0.85em; color:#555;">Email Address</label>
+            <input id="complaint_email" type="email" placeholder="you@example.com" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:14px; box-sizing:border-box;"/>
+
+            <label style="display:block; margin-bottom:4px; font-size:0.85em; color:#555;">Phone Number</label>
+            <input id="complaint_phone" type="tel" placeholder="+266 12345678" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:14px; box-sizing:border-box;"/>
+
+            <label style="display:block; margin-bottom:4px; font-size:0.85em; color:#555;">Subject</label>
+            <select id="complaint_subject" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:14px; box-sizing:border-box;">
+                <option value="">-- Select a subject --</option>
+                <option value="Complaint">Complaint</option>
+                <option value="General Enquiry">General Enquiry</option>
+                <option value="Report a Service">Report a Service</option>
+                <option value="Technical Issue">Technical Issue</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label style="display:block; margin-bottom:4px; font-size:0.85em; color:#555;">Message</label>
+            <textarea id="complaint_message" placeholder="Describe your complaint or enquiry..." rows="4" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:20px; box-sizing:border-box; resize:vertical;"></textarea>
+
+            <button id="complaintSubmitBtn" onclick="submitComplaint()" style="width:100%; padding:12px; background:#138d75; color:white; border:none; border-radius:8px; font-size:1em; cursor:pointer;">
+                Send Message
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="js/homePage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            data() {
+                return {
+                    services: [],
+                    topProviders: [],
+                    currentView: '',
+                    ratedServices: JSON.parse(localStorage.getItem('ratedServices') || '{}'),
+                    selectedService: null,
+                    showServiceDetail: false,
+                    loadingDetail: false,
+                    loadingTopProviders: false,
+                    currentPage: 1,
+                    totalPages: 1, //1
+                    limit: 6,
+                    apiUrl: 'http://localhost:5001/api/services',
+
+                    filters: {
+                        keyword: '',
+                        category: '',
+                        location: ''
+                    }
+                };
+            },
+            watch: {
+                selectedService(service) {
+                    if (!service) return;
+                    const existing = this.ratedServices[service._id];
+                }
+            },
+            computed: {
+                visiblePages() {
+                    const range = 5;
+                    let start = Math.max(1, this.currentPage - 2);
+                    let end = Math.min(this.totalPages, start + range - 1);
+                    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+                },
+                normalizedCategories() {
+                    if (!this.selectedService || !this.selectedService.category) {
+                    return [];
+                    }
+                    return Array.isArray(this.selectedService.category)
+                    ? this.selectedService.category
+                    : [this.selectedService.category];
+                }
+            },
+            mounted() {
+                this.loadServices();
+                this.loadTopProviders();
+                window._vueAppInstance = this;
+            },
+            methods: {
+                
+                goToResults() {
+                    const params = new URLSearchParams(this.filters).toString();
+
+                    //if (this.keyword && this.keyword.trim()) params.set("keyword", this.keyword.trim());
+                    if (this.keyword && this.keyword) params.set("keyword", this.keyword);
+                    if (this.category) params.set("category", this.category);
+                    if (this.location) params.set("location", this.location);
+
+                    window.location.href = `results3?${params.toString()}`;
+
+                }, 
+                async viewServiceDetails(serviceId) {
+                    this.showServiceDetail = true;
+                    this.loadingDetail = true;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                    try {
+                        const res = await fetch(`${this.apiUrl}/service?id=${serviceId}`);
+                        if (!res.ok) throw new Error('Failed to fetch service details');
+                        this.selectedService = await res.json();
+
+                        // Increment view count
+                        try {
+                            await fetch(`${this.apiUrl}/increment-view/${serviceId}`, {
+                                method: 'POST'
+                            });
+                        } catch (viewErr) {
+                            console.error('Error incrementing view count:', viewErr);
+                        }
+                    } catch (err) {
+                        console.error('Error loading service details:', err);
+                        alert('Failed to load service details. Please try again.');
+                        this.backToFeatured();
+                    } finally {
+                        this.loadingDetail = false;
+                    }
+
+                },
+                backToFeatured() {
+                    this.showServiceDetail = false;
+                    this.selectedService = null;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+
+                async loadServices(page = 1) {
+                    this.currentPage = page;
+                    const res = await fetch(
+                        `http://localhost:5001/api/services?page=${page}&limit=${this.limit}`
+                    );
+                    const data = await res.json();
+
+                    this.services = data.services;
+                    this.totalPages = data.totalPages;
+                },
+                async loadTopProviders() {
+                    this.loadingTopProviders = true;
+                    try {
+                        const res = await fetch(`${this.apiUrl}/top-providers?limit=4`);
+                        const data = await res.json();
+                        console.log('Top providers:', data);
+                        this.topProviders = data;
+                    } catch (err) {
+                        console.error('Error loading top providers:', err);
+                        // Fallback: load highest rated services
+                        try {
+                            const res = await fetch(`${this.apiUrl}?limit=5`);
+                            const data = await res.json();
+                            //this.topProviders = (data.services || []).slice(0, 5);
+                            this.topProviders = (data.services || []).slice(0, 5);
+                        } catch (fallbackErr) {
+                            console.error('Fallback also failed:', fallbackErr);
+                            this.topProviders = [];
+                        }
+                    } finally {
+                        this.loadingTopProviders = false;
+                    }
+                },
+            },
+            
+             
+            }).mount('#app');
+    </script>
+        
+    
+    
+
+    <script>
+        $('.count').each(function () {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 4000,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+    </script>
+    
+    <script>
+        async function loadCounts() {
+            try {
+                // Fetch service provider count
+                const servicesRes = await fetch("http://localhost:5001/api/services/count");
+                const servicesData = await servicesRes.json();
+                document.getElementById("serviceCount").textContent = servicesData.count;
+
+                // Fetch unique visitor count
+                const visitorsRes = await fetch("http://localhost:5001/api/visitors");
+                const visitorsData = await visitorsRes.json();
+                document.getElementById("visitorCount").textContent = visitorsData.count;
+
+    
+            } catch (err) {
+                console.error("Error loading counts:", err);
+            }
+        }
+    
+        window.onload = loadCounts;
+    </script>
+
+
+</body>
+</html>

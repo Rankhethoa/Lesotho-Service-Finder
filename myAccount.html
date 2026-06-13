@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/about.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/homePage.css">
+    <link rel="stylesheet" type="text/css" href="css/myAccount.css">
+
+    <title>My Account</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>My Account</h1>
+            <p>Create an account</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('login')">Register</button>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <!-- Login Form -->
+        <div id="login-form" class="form-section active">
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="register-identifier">Phone Number</label>
+                    <input type="text" required id="register-identifier" placeholder="Enter phone number">
+                    <div class="helper-text">Use phone (e.g., +26615151515)</div>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" required id="register-password" placeholder="Create a password" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" required id="register-confirm-password" placeholder="Confirm your password" minlength="6">
+                </div>
+                <button type="submit" id="regAccount" class="submit-btn">Register</button>
+            </form>
+        </div>
+
+    </div>
+    <script>
+
+        const API_BASE = 'http://localhost:5001'; //update to live backend URL (e.g. https://api.yoursite.com).
+
+        function showMessage(text, type) {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = text;
+            messageEl.className = `message ${type}`;
+            messageEl.style.display = 'block';
+        }
+
+        function hideMessage() {
+            const messageEl = document.getElementById('message');
+            messageEl.style.display = 'none';
+        }
+
+        function validateIdentifier(identifier) {
+            const phoneRegex = /^\+?[\d\s\-()]{7,}$/;
+            return phoneRegex.test(identifier);
+        }
+        // ✅ Login — calls backend, stores token, redirects to dashboard
+        async function handleRegister(e) {
+            e.preventDefault();
+
+            const identifier = document.getElementById('register-identifier').value.trim();
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            const btn = document.getElementById('regAccount');
+
+            hideMessage();
+
+            if (!validateIdentifier(identifier)) {
+                showMessage('Please enter a valid phone number', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showMessage('Passwords do not match', 'error');
+                return;
+            }
+
+            btn.textContent = 'Registering...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(`${API_BASE}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: identifier, password })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    showMessage(data.error || 'Registration failed. Please try again.', 'error');
+                    btn.textContent = 'Register';
+                    btn.disabled = false;
+                    return;
+                }
+
+                localStorage.setItem('token', data.token);
+                showMessage('Registration successful! Redirecting...', 'success');
+                localStorage.setItem('pendingPhone', identifier);
+
+                setTimeout(() => {
+                    window.location.href = 'registration.html';
+                }, 1000);
+
+            } catch (err) {
+                showMessage('Something went wrong. Please try again.', 'error');
+                btn.textContent = 'Register';
+                btn.disabled = false;
+            }
+        }
+        
+    </script>
+</body>
+</html>
+

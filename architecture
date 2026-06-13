@@ -1,0 +1,16 @@
+service-finder/
+│
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+│
+├── backend/
+│   ├── server.js
+│   ├── routes/
+│   │   └── services.js
+│   ├── models/
+│   │   └── Service.js
+│   └── package.json
+│
+└── README.md

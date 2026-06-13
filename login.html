@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/about.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/homePage.css">
+    <link rel="stylesheet" type="text/css" href="css/myAccount.css">
+
+    <title>My Account</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>My Account</h1>
+            <p>Access your posted service</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('login')">Login</button>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <!-- Login Form -->
+        <div id="login-form" class="form-section active">
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-identifier">Email or Phone Number</label>
+                    <input type="text" required id="login-identifier" placeholder="Enter email or phone number">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" required id="login-password" placeholder="Enter your password">
+                </div>
+                <button type="submit" id="loginAccount" class="submit-btn">Login</button>
+                <div id="support-msg" style="display:none; margin-top:12px; font-size:0.85rem; color:#555;">
+                    Still having trouble? 
+                    <a id="support-link" href="#" style="color:#3182ce;">Contact Support</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <script>
+        
+        function showMessage(text, type) {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = text;
+            messageEl.className = `message ${type}`;
+            messageEl.style.display = 'block';
+        }
+
+        function hideMessage() {
+            const messageEl = document.getElementById('message');
+            messageEl.style.display = 'none';
+        }
+
+        function validateIdentifier(identifier) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^\+?[\d\s\-()]{7,}$/;
+            return emailRegex.test(identifier) || phoneRegex.test(identifier);
+        }
+
+        // ✅ Login — calls backend, stores token, redirects to dashboard
+        async function handleLogin(e) {
+            e.preventDefault();
+
+            const identifier = document.getElementById('login-identifier').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            console.log('Sending login:', { email: identifier, password: !!password });
+
+            const btn = document.getElementById('loginAccount');
+            const supportMsg = document.getElementById('support-msg');
+            const supportLink = document.getElementById('support-link');
+
+            btn.textContent = 'Logging in...';
+            btn.disabled = true;
+            supportMsg.style.display = 'none';
+            hideMessage();
+
+            try {
+                const res = await fetch('http://localhost:5001/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: identifier, password })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    showMessage(data.error || 'Login failed. Please try again.', 'error');
+
+                    // Show support link with pre-filled email
+                    supportLink.href = `mailto:support@yourdomain.com?subject=Login Issue&body=I cannot log in. My identifier: ${encodeURIComponent(identifier)}`;
+                    supportMsg.style.display = 'block';
+
+                    btn.textContent = 'Login';
+                    btn.disabled = false;
+                    return;
+                }
+
+                // ✅ Store token and redirect
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userName', data.name);
+                showMessage('Login successful! Redirecting...', 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+
+            } catch (err) {
+                showMessage('Something went wrong. Please try again.', 'error');
+                btn.textContent = 'Login';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,332 @@
+/* ═══════════════════════════════
+   ROOT VARIABLES
+═══════════════════════════════ */
+:root {
+    --green: #00a651;
+    --green-dark: #008a44;
+    --text-dark: #222;
+    --text-light: #777;
+    --bg-light: #f9f9f9;
+    --white: #ffffff;
+    --shadow: 0 8px 25px rgba(0,0,0,0.06);
+    --radius: 12px;
+}
+
+/* ═══════════════════════════════
+   GLOBAL
+═══════════════════════════════ */
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+    background: #fff;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+}
+
+.section-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+    /* NEW */
+    justify-content: center;
+    display: block;
+    width: 100%;
+}
+
+.section-subtitle {
+    color: var(--text-light);
+    margin-bottom: 40px;
+    display: block;
+    width: 100%;
+}
+
+/* ═══════════════════════════════
+   NAVBAR
+
+.navbar {
+    background: #fff;
+    border: none;
+    box-shadow: var(--shadow);
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.navbar-nav li a {
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.navbar-nav li a:hover {
+    color: var(--green);
+}
+═══════════════════════════════ */
+/* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
+.about-hero {
+    height: 300px;
+    background: #138d75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.about-hero + .container {
+    margin-top: -120px;
+    background: white;
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.about-hero h1 {
+    font-size: 36px;
+}
+
+.about-hero p {
+    color: var(--text-light);
+}
+
+/* ═══════════════════════════════
+   SECTION
+═══════════════════════════════ */
+.about-section {
+    padding: 80px 0;
+}
+
+/* ═══════════════════════════════
+   MISSION / VISION CARDS
+═══════════════════════════════ */
+.mv-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: 0.3s ease;
+    /* NEW */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    min-height: 260px; /* keeps them uniform */
+    
+}
+
+.mv-card:hover {
+    transform: translateY(-8px);
+}
+
+.mv-card .icon {
+    font-size: 30px;
+    color: var(--green);
+    margin-bottom: 15px;
+}
+
+/* ═══════════════════════════════
+   STEPS
+═══════════════════════════════ */
+/* Equal height columns TEMP
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row > [class*="col-"] {
+    display: flex; 
+} */
+ 
+/*TEMP END */
+.text-center, .icon, .step-number, .cat-pill {
+    display: flex;
+    flex-wrap: wrap;}
+
+.step-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: 0.3s;
+    /* NEW */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    min-height: 260px; /* keeps them uniform */
+}
+
+.step-box:hover {
+    transform: translateY(-5px);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--green);
+    color: white;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* ═══════════════════════════════
+   CATEGORY PILLS
+═══════════════════════════════ */
+.cat-pill {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: #f1f1f1;
+    border-radius: 30px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.cat-pill i {
+    margin-right: 6px;
+    color: var(--green);
+}
+
+.cat-pill:hover {
+    background: var(--green);
+    color: white;
+}
+
+.cat-pill:hover i {
+    color: white;
+}
+
+/* ═══════════════════════════════
+   STATS BAR
+═══════════════════════════════ */
+.stats-bar {
+    background: var(--green);
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.stat-item h2 {
+    font-size: 36px;
+    margin-bottom: 5px;
+}
+
+.stat-item p {
+    opacity: 0.9;
+}
+
+/* ═══════════════════════════════
+   FAQ
+═══════════════════════════════ */
+.faq-item {
+    margin-bottom: 15px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.faq-question {
+    padding: 18px;
+    background: #fff;
+    cursor: pointer;
+    position: relative;
+    font-weight: 500;
+}
+
+.faq-question .arrow {
+    position: absolute;
+    right: 20px;
+    transition: 0.3s;
+}
+
+.faq-question.open .arrow {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    background: #fafafa;
+    padding: 0 18px;
+    transition: all 0.3s ease;
+}
+
+.faq-answer.open {
+    padding: 15px 18px;
+    max-height: 200px;
+}
+
+/* ═══════════════════════════════
+   CTA
+═══════════════════════════════ */
+.cta-section {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.cta-section h2 {
+    margin-bottom: 10px;
+}
+
+.btn-cta {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 25px;
+    background: var(--green);
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-cta:hover {
+    background: var(--green-dark);
+}
+
+.btn-cta-outline {
+    background: transparent;
+    border: 2px solid white;
+}
+
+.btn-cta-outline:hover {
+    background: white;
+    color: #111;
+}
+
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 26px;
+    }
+
+    .about-hero {
+        height: 220px;
+    }
+
+    .about-hero + .container {
+        margin-top: -80px;
+        padding: 25px;
+    }
+
+    .mv-card,
+    .step-box {
+        margin-bottom: 20px;
+    }
+}

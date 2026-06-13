@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="css/homePage.css">
+  <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+
+</head>
+<body>
+  <section id="menu-navbar">
+    <div class="nav-bar">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    
+                    <a class="navbar-brand" href="index.html">
+                        <img src="image/logo.png" alt="Service Finder Logo">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">HOME</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</section>
+<!---
+<header>
+  <h1>My Dashboard</h1>
+  <button onclick="logout()">HOME</button>
+</header> -->
+
+<div class="container">
+  <div class="card">
+    <h2>My Service Details</h2>
+    <div id="loading" class="loading">Loading your service info...</div>
+
+    <div id="service-form" style="display:none;">
+  
+      <div class="form-group">
+        <label>Service Name</label>
+        <input type="text" id="serviceName" />
+      </div>
+    
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="description"></textarea>
+      </div>
+    
+      <div class="form-group">
+        <label>Service Category</label>
+        <select id="category">
+          <option value="">All Categories</option>
+          <optgroup label="Beauty & Personal Care">
+            <option value="Makeup">Makeup</option>
+            <option value="Braids">Braider</option>
+            <option value="Wigs">Wigs</option>
+            <option value="Barber">Barber</option>
+            <option value="Nails">Nails</option>
+            <option value="Lash tech">Lash tech</option>
+            <option value="Tattoo and Piercings">Tattoo and Piercings</option>
+          </optgroup>
+          <optgroup label="Cleaning Services">
+            <option value="Laundry">Laundry</option>
+            <option value="Sneaker cleaning">Sneaker cleaning</option>
+            <option value="Car wash">Car wash</option>
+            <option value="Home Cleaning">Home Cleaning</option>
+          </optgroup>
+          <optgroup label="Home & Outdoor Services">
+            <option value="Gardener">Gardener</option>
+            <option value="Plumber">Plumber</option>
+            <option value="Electrician">Electrician</option>
+            <option value="Painter">Painter</option>
+            <option value="Handyman">Handyman</option>
+          </optgroup>
+          <optgroup label="Professional Services">
+            <option value="Photographer">Photographer</option>
+            <option value="Event planner">Event planner</option>
+            <option value="Caterer">Caterer</option>
+            <option value="Personal Trainer">Personal Trainer</option>
+            <option value="Tutor">Tutor</option>
+          </optgroup>
+        </select>
+      </div>
+    
+      <div class="form-group">
+        <label>District</label>
+        <select id="district">
+          <option value="">Select District</option>
+          <option value="Berea">Berea</option>
+          <option value="Butha-Buthe">Butha-Buthe</option>
+          <option value="Leribe">Leribe</option>
+          <option value="Mafeteng">Mafeteng</option>
+          <option value="Maseru">Maseru</option>
+          <option value="Mohale's Hoek">Mohale's Hoek</option>
+          <option value="Mokhotlong">Mokhotlong</option>
+          <option value="Qacha's Nek">Qacha's Nek</option>
+          <option value="Quthing">Quthing</option>
+          <option value="Thaba-Tseka">Thaba-Tseka</option>
+        </select>
+      </div>
+    
+      <div class="form-group">
+        <label>Specific Area</label>
+        <input type="text" id="area" placeholder="Enter your specific area" />
+      </div>
+    
+      <div class="btn-row">
+        <button class="btn-save" id="saveBtn" onclick="saveService()">Save Changes</button>
+        <button class="btn-cancel" onclick="cancelEdit()">Cancel</button>
+      </div>
+    
+      <div class="status-msg" id="statusMsg"></div>
+    </div>
+
+  
+
+    <div id="no-service" style="display:none;">
+      <p>You have no service registered yet.</p>
+      <br>
+      <a href="registration.html">Register a Service</a>
+    </div>
+  </div>
+</div>
+
+<script>
+let originalData = {};
+let serviceId = null;
+const token = localStorage.getItem('token');
+
+async function loadService() {
+  try {
+    console.log('Token:', token);
+    const res = await fetch('http://localhost:5001/api/services/mine', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    console.log('Response status:', res.status);
+
+    const data = await res.json();
+
+    console.log('Data received:', data); 
+
+    document.getElementById('loading').style.display = 'none';
+
+    if (!res.ok || data.length === 0) {
+      document.getElementById('no-service').style.display = 'block';
+      return;
+    }
+
+    const service = data[0];
+    serviceId = service._id;
+    originalData = service;
+
+    document.getElementById('serviceName').value = service.name             || '';
+    document.getElementById('description').value = service.description      || '';
+    document.getElementById('category').value    = service.category?.[0]   || '';
+    document.getElementById('district').value    = service.location?.district || '';
+    document.getElementById('area').value        = service.location?.area   || '';
+
+    document.getElementById('service-form').style.display = 'block';
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById('loading').textContent = 'Failed to load service info.';
+  }
+}
+
+async function saveService() {
+  const btn = document.getElementById('saveBtn');
+  const msg = document.getElementById('statusMsg');
+
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+  msg.className = 'status-msg';
+
+  const updated = {
+    name:        document.getElementById('serviceName').value,
+    description: document.getElementById('description').value,
+    category:    [document.getElementById('category').value], // ✅ array
+    location: {
+      district:  document.getElementById('district').value,  // ✅ separate field
+      area:      document.getElementById('area').value
+    }
+  };
+
+  try {
+    const res = await fetch(`http://localhost:5001/api/services/${serviceId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(updated)
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to save');
+
+    originalData = { ...originalData, ...updated };
+    msg.textContent = '✅ Changes saved successfully!';
+    msg.className = 'status-msg success';
+
+  } catch (err) {
+    msg.textContent = `❌ ${err.message}`;
+    msg.className = 'status-msg error';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Save Changes';
+}
+
+function cancelEdit() {
+  document.getElementById('serviceName').value = originalData.name              || '';
+  document.getElementById('description').value = originalData.description       || '';
+  document.getElementById('category').value    = originalData.category?.[0]    || '';
+  document.getElementById('district').value    = originalData.location?.district || '';
+  document.getElementById('area').value        = originalData.location?.area    || '';
+
+  document.getElementById('statusMsg').className = 'status-msg';
+}
+
+  function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    window.location.href = 'my account.html';
+  }
+
+  loadService();
+</script>
+
+</body>
+</html>

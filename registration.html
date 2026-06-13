@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Service Finder</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="css/registration.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,600,600i,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+</head>
+
+<body>
+     <!--===== top nav ====-->
+    <section class="top-nav">
+        <div class="container">
+            <div class="row">
+                 <div class="col-md-6">
+                    <div class="left-menu">
+                        <ul>
+                            <li><a href="about.html"><i class="fa fa-phone" aria-hidden="true"></i>contact us</a></li> <!--create a contact us section-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="menu">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--    ===== menu navbar ====-->
+    <section id="menu-navbar">
+        <div class="nav-bar">
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                        <a class="navbar-brand" href="#"><img src="image/../image/logo.png"></a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html">Home</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+        </div>
+    </section>
+    
+<!--======REGISTRATION HTML=======-->
+    <div class="modal-wrap">
+        <div class="modal-header"><span class="is-active"></span><span></span><span></span><span></span><span></span></div>
+        <div class="modal-bodies">
+            <div class="modal-body modal-body-step-1 is-showing" id="step1" >
+                <div class="title">Step 1</div>
+                <div class="description">Enter Your Details.</div>
+                <form id="step1Form">
+                    <input type="text" id="serviceName" placeholder="Service name" required/>  
+                    <div class="text-center">
+                        <div type="button" class="nxtBtn" >Next</div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-body modal-body-step-2" id="step2" style="display:none;">
+                <div class="title">Step 2</div>
+                <form id="step2Form">
+                    <div class="description">Choose your service category</div>
+                    <select id="categorySelect" class="selectpicker" required>
+                        <optgroup label="Beauty & Personal Care">
+                            <option>Makeup</option>
+                            <option>Braider</option>
+                            <option>Barber</option>
+                            <option>Nails</option>
+                            <option>Lash tech</option>
+                            <option>Tattoo and Piercings</option>
+                            <option>Wigs</option>
+                        </optgroup>
+                        <optgroup label="Cleaning Services">
+                            <option>Laundry</option>
+                            <option>Sneaker Cleaning</option>
+                            <option>Car Wash</option>
+                            <option>Home Cleaning</option>
+                        </optgroup>
+                        <optgroup label="Home & Outdoor Services">
+                            <option>Gardener</option>
+                            <option>Plumber</option>
+                            <option>Electrician</option>
+                            <option>Painter</option>
+                            <option>Handyman</option>
+                        </optgroup>
+                        <optgroup label="Professional Services">
+                            <option>Photographer</option>
+                            <option>Event Planner</option>
+                            <option>Caterer</option>
+                            <option>Personal Trainer</option>
+                            <option>Tutor</option>
+                        </optgroup>
+                    </select>
+            
+                    <div class="description">Choose your service location</div>
+                    <select id="districtSelect" class="selectpicker" required>
+                        <optgroup label="District">
+                            <option>Berea</option>
+                            <option>Butha-Buthe</option>
+                            <option>Leribe</option>
+                            <option>Mafeteng</option>
+                            <option>Maseru</option>
+                            <option>Mohale's Hoek</option>
+                            <option>Mokhotlong</option>
+                            <option>Qacha's Nek</option>
+                            <option>Quthing</option>
+                            <option>Thaba-Tseka</option>
+                        </optgroup>
+                    </select>
+                    <input type="text" id="areaSelect" placeholder="Add your precise location" required/>
+            
+                    <div class="text-center fade-in">
+                        <div type="button" class="backBtn">Back</div>
+                        <div type="button" class="nxtBtn">Next</div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-body modal-body-step-3" id="step3" style="display:none;">
+                <div class="title">Step 3</div>
+                <form id="step3Form">
+                    <input type="text" id="phone" placeholder="Phone number"  required/>                
+                    <!-- Social Media Section -->
+                    <div class="social-section">
+                        <label for="socialPlatform">Select social media platform:</label>
+                        <select id="socialPlatform">
+                            <option value="">-- Choose Platform --</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Facebook">Facebook</option>
+                        </select>
+                
+                        <input type="text" id="socialUsername" placeholder="Enter link to your page"/>
+                        <button type="button" id="addSocialBtn">Add</button>
+                
+                        <ul id="socialList"></ul>
+                    </div>
+                    <div class="text-center fade-in">
+                        <div type="button" class="backBtn">Back</div>
+                        <button type="button" class="nxtBtn">Next</button>
+                    </div>
+                </form>
+            </div>
+        
+            <div class="modal-body modal-body-step-4" id="step4" style="display:none;">
+                <div class="title">Step 4</div>
+                <div class="description">Add a brief description of your business</div>
+                <form id="step4Form">
+                    <input type="text" id="descriptionInput" placeholder="Enter description" /> 
+                    <div class="text-center fade-in">
+                        <div type="button" class="backBtn">Back</div>
+                        <button type="button" class="nxtBtn">Next</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-body modal-body-step-5" id="step5" style="display:none;">
+                <div class="title">Step 5</div>
+                <div class="description">Select your price range</div>
+                <form id="step5Form">
+                    <div class="range-slider">
+                        <span id="range1">M10.00</span>
+                        <span id="range2">M2000.00</span>
+                        <div class="slider-track"></div>
+                        <input type="range" min="0" max="2000" value="10" id="slider-1" step="50" >
+                        <input type="range" min="0" max="2000" value="2000" id="slider-2" step="50" >
+                    </div>
+                    <div class="price-output">Selected Range: <span id="priceText">M10.00 - M2000.00</span></div>
+                    <div class="text-center fade-in">
+                        <div type="button" class="backBtn">Back</div>
+                        <button type="submit" class="regBtn" id="regBtn">Register</button> 
+                    </div>
+                </form>
+            </div>
+            
+
+        </div>
+    </div>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/registration.js"></script>
+        
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    header {
+      background: #138d75; /* 1a202c */
+      color: white;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 { font-size: 1.2rem; }
+
+    header button {
+      background: transparent;
+      border: 1px solid #fff;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    .card h2 {
+      margin-bottom: 24px;
+      font-size: 1.3rem;
+      color: #1a202c;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: #f9f9f9;
+      transition: border 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #3182ce;
+      background: white;
+    }
+
+    .form-group textarea { resize: vertical; min-height: 90px; }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-save {
+      background: #138d75;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .btn-save:hover { background: #2c5282; }
+    .btn-save:disabled { background: #a0aec0; cursor: not-allowed; }
+
+    .btn-cancel {
+      background: #edf2f7;
+      color: #333;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .status-msg {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      padding: 10px 14px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .status-msg.success { background: #c6f6d5; color: #276749; display: block; }
+    .status-msg.error   { background: #fed7d7; color: #9b2c2c; display: block; }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #888;
+    }
