@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose"; 
 import Service from "../models/Service.js";
 import Provider from "../models/Provider.js";
-import authenticate from "../../middleware/authenticate.js"; 
+import authenticate from "../middleware/authenticate.js"; 
 
 
 const router = express.Router();

@@ -9,5 +9,3 @@ const visitorSchema = new mongoose.Schema({
   });
   
   export default mongoose.model('Visitor', visitorSchema);
-
-  

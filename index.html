@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     
     <!-- CSS Files -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/animate.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/homePage.css">
+    <link rel="stylesheet" type="text/css" href="frontend/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="frontend/css/animate.css">
+    <!--link rel="stylesheet" type="text/css" href="frontend/css/font-awesome.min.css"-->
+    <link rel="stylesheet" type="text/css" href="frontend/css/style.css">
+    <link rel="stylesheet" type="text/css" href="frontend/css/homePage.css">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,600,600i,700" rel="stylesheet">
@@ -85,7 +85,7 @@
                                 <p class="list-key">Service Category</p>
                                 <div class="list3-24-18">
                                     <form @submit.prevent>
-                                        <select class="selectpicker" v-model="filters.category">
+                                        <select class="input-control" v-model="filters.category">
                                             <option value="">All Categories</option>
                                             <optgroup label="Beauty & Personal Care">
                                                 <option value="Makeup">Makeup</option>
@@ -126,7 +126,7 @@
                                 <p class="list-key">Location</p>
                                 <div class="list3-24-18">
                                     <form @submit.prevent>
-                                        <select class="selectpicker" v-model="filters.location">
+                                        <select class="input-control" v-model="filters.location">
                                             <option value="">All Locations</option>
                                             <option value="Berea">Berea</option>
                                             <option value="Butha-Buthe">Butha-Buthe</option>
@@ -145,11 +145,11 @@
 
                             <!-- Search Button -->
                             <div class="col-md-4">
-                                <form @submit.prevent="goToResults">
-                                    <button type="submit" class="search-button" @click="goToResults">
+                                <!--form @submit.prevent="goToResults"-->
+                                    <button type="button" class="search-button" @click="goToResults">
                                         <i class="fa fa-search"></i> Search
                                     </button>
-                                </form>
+                                <!--form-->
                             </div>
                         </div>
                     </div>
@@ -471,7 +471,7 @@
                 </div>
 
                 <div class="home-button text-center" >
-                    <a href="results3.html" class="button-17_03">See All Providers</a>
+                    <a href="frontend/html/providers.html" class="button-17_03">See All Providers</a>
                 </div>
             </div>
 
@@ -534,9 +534,9 @@
                         <h4>Information</h4>
                         <ul>
                             <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="terms.html">Terms &amp; Conditions</a></li>
-                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="frontend/html/aboutUs.html">About Us</a></li>
+                            <li><a href="frontend/html/terms.html">Terms &amp; Conditions</a></li>
+                            <li><a href="frontend/html/privacyPolicy.html">Privacy Policy</a></li>
                         </ul>
                     </div>
                 </div>
@@ -544,9 +544,9 @@
                     <div class="Footer-site-map footer-menu-list">
                         <h4>For Service Providers</h4>
                         <ul>
-                            <li><a href="about.html">How it works</a></li>
-                            <li><a href="myAccount.html">Register Service</a></li>
-                            <li><a href="login.html">Edit Service Details</a></li>
+                            <li><a href="frontend/html/aboutUs.html">How it works</a></li>
+                            <li><a href="frontend/html/createAccount.html">Register Service</a></li>
+                            <li><a href="frontend/html/editService.html">Edit Service Details</a></li>
                         </ul>
                     </div>
                 </div>
@@ -665,10 +665,10 @@
     </div>
 
     <!-- JavaScript Files -->
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="frontend/js/jquery-3.1.1.min.js"></script>
+    <script src="frontend/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-    <script src="js/homePage.js"></script>
+    <script src="frontend/js/homePage.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <script>
@@ -724,7 +724,7 @@
                 window._vueAppInstance = this;
             },
             methods: {
-                
+                /*
                 goToResults() {
                     const params = new URLSearchParams(this.filters).toString();
 
@@ -733,9 +733,22 @@
                     if (this.category) params.set("category", this.category);
                     if (this.location) params.set("location", this.location);
 
-                    window.location.href = `results3?${params.toString()}`;
+                    //window.location.href = `results3?${params.toString()}`;
+                    window.location.href = `providers?${params.toString()}`;
 
-                }, 
+                }, */
+                goToResults() {
+                    console.log("goToResults called", this.filters); // confirm it's being called
+                    const params = new URLSearchParams();
+                    if (this.filters.keyword && this.filters.keyword.trim()) params.set("keyword", this.filters.keyword.trim());
+                    if (this.filters.category && this.filters.category.trim()) params.set("category", this.filters.category.trim());
+                    if (this.filters.location && this.filters.location.trim()) params.set("location", this.filters.location.trim());
+                    
+                    const url = `frontend/html/providers?${params.toString()}`;
+                    console.log("Navigating to:", url);
+                    window.location.href = url;
+                },
+               
                 async viewServiceDetails(serviceId) {
                     this.showServiceDetail = true;
                     this.loadingDetail = true;

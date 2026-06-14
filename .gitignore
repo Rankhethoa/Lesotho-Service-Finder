@@ -1,0 +1,16 @@
+# Secrets
+.env
+.env.*
+
+# User uploads
+uploads/
+
+# MongoDB dumps/backups
+dump/
+backups/
+
+# Build output
+dist/
+
+# Dependencies
+node_modules/

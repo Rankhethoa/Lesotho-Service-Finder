@@ -1,15 +1,22 @@
 {
   "name": "servicefinder",
   "version": "1.0.0",
+  "description": "A website for finding local service providers in Lesotho",
   "type": "module",
-  "description": ">A website for finding local service providers in Lesotho",
-  "main": "clearRatings.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
+  "keywords": ["service provider", "local businesses", "Lesotho"],
   "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongoose": "^9.6.1",
+    "nodemailer": "^7.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.6",
+    "mongodb": "^6.19.0"
+  } 
 }
