@@ -4,6 +4,14 @@ import cors from "cors";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static frontend files
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 dotenv.config();
 const app = express();
@@ -11,10 +19,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use('/api/auth');
-//app.use('/api/services');
 
-let storedRegistration = {};  // temporary stored data
+
+let storedRegistration = {}; 
 
 
 // Test route
@@ -179,6 +186,10 @@ mongoose
     // Get saved data
     app.get("/service-details", (req, res) => {
         res.json(storedRegistration);
+    });
+
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'index.html'));
     });
 
 
