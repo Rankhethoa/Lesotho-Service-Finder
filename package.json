@@ -7,16 +7,21 @@
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": ["service provider", "local businesses", "Lesotho"],
+  "keywords": [
+    "service provider",
+    "local businesses",
+    "Lesotho"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "mongoose": "^9.6.1",
-    "nodemailer": "^7.0.5",
     "jsonwebtoken": "^9.0.2",
-    "cors": "^2.8.6",
-    "mongodb": "^6.19.0"
-  } 
+    "mongodb": "^6.19.0",
+    "mongoose": "^9.6.1",
+    "nodemailer": "^7.0.5"
+  }
 }
