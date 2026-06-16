@@ -9,7 +9,7 @@ let originalData = {};
 async function loadService() {
     try {
         console.log('Token:', token);
-      const res = await fetch('http://localhost:5001/api/services/mine', {
+      const res = await fetch('/api/services/mine', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -62,7 +62,7 @@ async function loadService() {
     };
   
     try {
-      const res = await fetch(`http://localhost:5001/api/services/${serviceId}`, {
+      const res = await fetch(`/api/services/${serviceId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -254,7 +254,7 @@
           filteredServices: [],
           currentView: 'services',
           services: [],
-          apiUrl: 'http://localhost:5001/api/services',
+          apiUrl: '/api/services',
           loading: true,
           selectedService: null,
           currentPage: 1,
@@ -327,7 +327,7 @@
             urlParams.set("page", page);
             urlParams.set("limit", this.perPage);
             
-            const apiUrl = `http://localhost:5001/api/services?${urlParams.toString()}`;
+            const apiUrl = `/api/services?${urlParams.toString()}`;
             console.log("Fetching in fetchService:", apiUrl);
             
             const res = await fetch(apiUrl);

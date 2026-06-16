@@ -688,7 +688,7 @@
                     currentPage: 1,
                     totalPages: 1, //1
                     limit: 6,
-                    apiUrl: 'http://localhost:5001/api/services',
+                    apiUrl: '/api/services',
 
                     filters: {
                         keyword: '',
@@ -771,7 +771,7 @@
                 async loadServices(page = 1) {
                     this.currentPage = page;
                     const res = await fetch(
-                        `http://localhost:5001/api/services?page=${page}&limit=${this.limit}`
+                        `/api/services?page=${page}&limit=${this.limit}`
                     );
                     const data = await res.json();
 
@@ -828,12 +828,12 @@
         async function loadCounts() {
             try {
                 // Fetch service provider count
-                const servicesRes = await fetch("http://localhost:5001/api/services/count");
-                const servicesData = await servicesRes.json();
+                const servicesRes = await fetch("/api/services/count");
+                const servicesData = await servicesRes.json()
                 document.getElementById("serviceCount").textContent = servicesData.count;
 
                 // Fetch unique visitor count
-                const visitorsRes = await fetch("http://localhost:5001/api/visitors");
+                const visitorsRes = await fetch("/api/visitors");
                 const visitorsData = await visitorsRes.json();
                 document.getElementById("visitorCount").textContent = visitorsData.count;
 

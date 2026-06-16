@@ -18,7 +18,7 @@ let tracked = false;
 // Send visit after 15 seconds
 const trackingTimer = setTimeout(async () => {
   try {
-    await fetch('http://localhost:5001/api/visitors/track', {
+    await fetch('/api/visitors/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sessionId, timeSpent: 15 })
@@ -34,7 +34,7 @@ window.addEventListener('beforeunload', () => {
   const timeSpent = Math.floor((Date.now() - startTime) / 1000);
   if (!tracked && timeSpent > 0) {
     navigator.sendBeacon(
-      'http://localhost:5001/api/visitors/track',
+      '/api/visitors/track',
       JSON.stringify({ sessionId, timeSpent })
     );
   }
@@ -43,7 +43,7 @@ window.addEventListener('beforeunload', () => {
 // ---- Statistics Counter ----
 async function loadStats() {
   try {
-    const res = await fetch('http://localhost:5001/api/stats');
+    const res = await fetch('/api/stats');
     const { serviceCount, visitorCount } = await res.json();
 
     animateCount('serviceCount', serviceCount);
@@ -109,7 +109,7 @@ function submitComplaint() {
     btn.textContent = "Sending...";
     btn.disabled = true;
 
-    fetch("http://localhost:5001/api/contact", {
+    fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, phone, subject, message })
@@ -242,7 +242,7 @@ document.getElementById("complaintModal").addEventListener("click", function(e) 
         submitBtn.style.opacity = '0.6';
 
         try {
-            const res = await fetch(`http://localhost:5001/api/services/${serviceId}/rate`, {
+            const res = await fetch(`/api/services/${serviceId}/rate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ rating: selectedRating })
@@ -314,7 +314,7 @@ document.getElementById("complaintModal").addEventListener("click", function(e) 
      */
     async function loadAndAnimateCounts() {
         try {
-            const apiUrl = 'http://localhost:5001/api/services';
+            const apiUrl = '/api/services';
 
             // Fetch service provider count
             const servicesRes = await fetch(`${apiUrl}/count`);
@@ -328,7 +328,7 @@ document.getElementById("complaintModal").addEventListener("click", function(e) 
             }
 
             // Fetch visitor count
-            const visitorsRes = await fetch("http://localhost:5001/api/visitors");
+            const visitorsRes = await fetch("/api/visitors");
             if (visitorsRes.ok) {
                 const visitorsData = await visitorsRes.json();
                 const visitorCountEl = document.getElementById("visitorCount");

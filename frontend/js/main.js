@@ -34,7 +34,7 @@ const socialData = {}; // Stores social platforms and usernames dynamically
     });
 */
 
-const API_URL = `http://localhost:5001/api/services`; // adjust if needed
+const API_URL = `/api/services`; // adjust if needed
 
 async function loadServices() {
   try {
