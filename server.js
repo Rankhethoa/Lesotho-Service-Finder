@@ -13,6 +13,7 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
+router.set("trust proxy", true);
 
 app.use(cors());
 app.use(express.json());

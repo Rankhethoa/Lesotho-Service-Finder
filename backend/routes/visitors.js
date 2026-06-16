@@ -5,7 +5,6 @@ import Visitor from "../models/Visitor.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  router.set("trust proxy", true);
   try {
     const rawIp =
       req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
