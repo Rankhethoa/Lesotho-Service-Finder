@@ -18,7 +18,7 @@ let tracked = false;
 // Send visit after 15 seconds
 const trackingTimer = setTimeout(async () => {
   try {
-    await fetch('/api/visitors/track', {
+    await fetch('/api/visitors', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sessionId, timeSpent: 15 })
