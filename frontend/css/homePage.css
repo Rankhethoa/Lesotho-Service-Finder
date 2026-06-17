@@ -117,8 +117,7 @@ a:hover {
     color: var(--text-dark);
     font-size: 14px;
     transition: all 0.3s ease;
-    /* NEW */
-    height: auto;
+    
     
 }
 
