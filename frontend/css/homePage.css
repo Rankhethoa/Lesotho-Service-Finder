@@ -117,6 +117,12 @@ a:hover {
     color: var(--text-dark);
     font-size: 14px;
     transition: all 0.3s ease;
+    /* NEW */
+    height: auto;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+    line-height: 1.5;
 }
 
 .input-control:focus,

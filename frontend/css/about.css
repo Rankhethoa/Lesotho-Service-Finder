@@ -42,31 +42,7 @@ h1, h2, h3, h4 {
     width: 100%;
 }
 
-/* ═══════════════════════════════
-   NAVBAR
 
-.navbar {
-    background: #fff;
-    border: none;
-    box-shadow: var(--shadow);
-}
-
-.navbar-brand img {
-    height: 40px;
-}
-
-.navbar-nav li a {
-    color: var(--text-dark);
-    font-weight: 500;
-}
-
-.navbar-nav li a:hover {
-    color: var(--green);
-}
-═══════════════════════════════ */
-/* ═══════════════════════════════
-   HERO
-═══════════════════════════════ */
 .about-hero {
     height: 300px;
     background: #138d75;
@@ -128,6 +104,7 @@ h1, h2, h3, h4 {
     font-size: 30px;
     color: var(--green);
     margin-bottom: 15px;
+    text-align: center;
 }
 
 /* ═══════════════════════════════
