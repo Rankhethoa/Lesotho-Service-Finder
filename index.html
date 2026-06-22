@@ -731,7 +731,7 @@
                     if (this.filters.category && this.filters.category.trim()) params.set("category", this.filters.category.trim());
                     if (this.filters.location && this.filters.location.trim()) params.set("location", this.filters.location.trim());
                     
-                    const url = `/html/providers?${params.toString()}`;
+                    const url = `frontend/html/providers?${params.toString()}`;
                     window.location.href = url;
                 },
                
