@@ -173,21 +173,23 @@
                                         <div class="service-avatar">
                                             {{ service.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase() }}
                                         </div>
-                                        <p style="font-size: 15px;">{{ service.name }}</p>
+                                        <p style="font-size: 15px; margin: 0;">{{ service.name }}</p>
                                     </div>
                                 </td>
                                 <td class="work-time">
                                     {{ service.priceRange || "Price not provided" }}
-                                </td>                   
+                                </td>
                                 <td>
-                                    <i class="fa fa-map-marker"></i>
-                                    {{ service.location?.area }}, {{ service.location?.district }}
-                                </td>                   
+                                    <span class="location-cell">
+                                        <i class="fa fa-map-marker"></i>
+                                        {{ service.location?.area }}, {{ service.location?.district }}
+                                    </span>
+                                </td>
                                 <td>
                                     <a href="#" @click.prevent="viewServiceDetails(service._id)" class="table-btn-default">
                                         View Service
                                     </a>
-                                </td>                  
+                                </td>
                             </tr>
                         </tbody>
                     </table>
